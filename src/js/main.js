@@ -110,7 +110,7 @@
         });
         $(this.id + " .opacity").scojs_tooltip({
             appendTo: this.id,
-            content: '弹幕透明度'
+            content: '音量'
         });
         $(this.id + " .show-danmu").scojs_tooltip({
             appendTo: this.id,
@@ -275,9 +275,9 @@
 
         //调整透明度事件
         $(this.id + " .danmu-op").on('mouseup touchend', {that: that}, function (e) {
-            $(e.data.that.id + " .danmu-div").data("opacity", (e.target.value / 100));
-            $(e.data.that.id + " .danmaku").css("opacity", (e.target.value / 100));
-
+            /*$(e.data.that.id + " .danmu-div").data("opacity", (e.target.value / 100));
+            $(e.data.that.id + " .danmaku").css("opacity", (e.target.value / 100));*/
+            $(".danmu-video")[0].volume = e.target.value / 100;
         });
 
         //全屏事件
