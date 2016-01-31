@@ -517,7 +517,7 @@ var cyntax = {
         maxCountPerSec: 10
     };
 
-    $.danmuDefaults() = function() {
+    $.danmuDefaults = function() {
         return Danmu.DEFAULTS;
     };
     
