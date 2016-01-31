@@ -423,7 +423,7 @@ var cyntax = {
                                     var newSpeed = ($(element).width()+400)/me.speed;
                                     nowCount++;
                                     nowSecCount++;
-                                    $("#" + flyTmpName).animate({left: -($("#" + flyTmpName).width() + 400)}, newSpeed
+                                    $("#" + flyTmpName).animate({left: -($("#" + flyTmpName).width() + 400)}, newSpeed, "linear"
                                         , function () {
                                             $(this).remove();
                                             nowCount--;
@@ -517,6 +517,10 @@ var cyntax = {
         maxCountPerSec: 10
     };
 
+    $.danmuDefaults() = function() {
+        return Danmu.DEFAULTS;
+    };
+    
 
     Danmu.prototype.danmuStart = function () {
         this.$timer.timer('start');
