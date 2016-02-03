@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "fullscreen.js",
+  "sourceRoot": "",
+  "sources": [
+    "fullscreen.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA,CAAC,CAAC,EAAE,CAAC,UAAL,GAAkB,SAAA;AAChB,QAAA;IAAA,CAAA,GAAI,IAAK,CAAA,CAAA;;MACT,CAAC,CAAC;;;MACF,CAAC,CAAC;;;MACF,CAAC,CAAC;;6DACF,CAAC,CAAC;EALc;;EAOlB,CAAC,CAAC,cAAF,GAAmB,SAAA;;MACjB,QAAQ,CAAC;;;MACT,QAAQ,CAAC;;;MACT,QAAQ,CAAC;;;MACT,QAAQ,CAAC;;6DACT,QAAQ,CAAC;EALQ;AAPnB"
+}

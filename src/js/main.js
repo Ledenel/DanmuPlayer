@@ -36,7 +36,7 @@
 
 
         //弹幕层设置,使用了定制的jquery.danmu.js
-        this.$element.append('<div class="danmu-div"id="' + $(element).attr("id") + '-danmu-div" ></div>');
+        this.$element.append('<div class="danmu-div" id="' + $(element).attr("id") + '-danmu-div" ></div>');
         $(this.id + " .danmu-div").danmu({
             width: "100%",
             height: "100%",
@@ -70,6 +70,8 @@
         this.$ctrlMain.append('<div class="opt-btn ctrl-btn " ><span class="glyphicon glyphicon-text-color" aria-hidden="true"></div>');
         this.$ctrlMain.append('<input class="danmu-input ctrl-btn"   type="textarea" id="danmu_text" max=300 />'); // -> button あ
         this.$ctrlMain.append('<div class=" send-btn  ctrl-btn"  >发送 ></div>');
+
+        this.$ctrlMain.append('<div class="full-screen-desktop   ctrl-btn-right"><span class=" glyphicon glyphicon-fullscreen" aria-hidden="true"></span></div>');
         this.$ctrlMain.append('<div class="full-screen   ctrl-btn-right"><span class=" glyphicon glyphicon-resize-full" aria-hidden="true"></span></div>');
         this.$ctrlMain.append('<div class="loop-btn   ctrl-btn-right"><span class="glyphicon glyphicon-retweet" aria-hidden="true"></span></div>');
         this.$ctrlMain.append('<div class="show-danmu  ctrl-btn-right ctrl-btn-right-active"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></div>');
@@ -122,7 +124,11 @@
         });
         $(this.id + " .full-screen").scojs_tooltip({
             appendTo: this.id,
-            content: '全屏'
+            content: '全屏<br>(网页)'
+        });
+        $(this.id + " .full-screen-desktop").scojs_tooltip({
+            appendTo: this.id,
+            content: '全屏<br>(桌面)'
         });
         $(this.id + ' .colpicker').colpick({
             flat: true,
@@ -159,7 +165,7 @@
             if (text.length == 0) {
                 return;
             }
-            if (text.length > 255){
+            if (text.length > 255) {
                 alert("弹幕过长！");
                 return;
             }
@@ -198,31 +204,31 @@
         //主计时器
         var mainTimer = setInterval(function () {
             //缓冲条
-            var bufTime=$(that.id + " .danmu-video").get(0).buffered.end($(that.id + " .danmu-video").get(0).buffered.length-1);
+            var bufTime = $(that.id + " .danmu-video").get(0).buffered.end($(that.id + " .danmu-video").get(0).buffered.length - 1);
 
-            var buffPrecent = (bufTime/that.duration) * 100;
+            var buffPrecent = (bufTime / that.duration) * 100;
             $(that.id + ".danmu-player .ctrl-progress .buffered ").css("width", buffPrecent + "%");
-           // 时间轴修正
-           // if (Math.abs($(that.id + " .danmu-div").data("nowTime") - parseInt(that.video.currentTime)*10) > 1) {
-           //     $(that.id + " .danmu-div").data("nowTime", parseInt(that.video.currentTime)*10);
-           //     console.log("revise time：")
-           // }
+            // 时间轴修正
+            // if (Math.abs($(that.id + " .danmu-div").data("nowTime") - parseInt(that.video.currentTime)*10) > 1) {
+            //     $(that.id + " .danmu-div").data("nowTime", parseInt(that.video.currentTime)*10);
+            //     console.log("revise time：")
+            // }
         }, 1000);
 
 
         var secTimer = setInterval(function () {
-           // if (Math.abs($(that.id + " .danmu-div").data("nowTime") - parseInt(that.video.currentTime*10)) > 1) {
-              //  console.log("revise time"+$(that.id + " .danmu-div").data("nowTime")+ ","+that.video.currentTime*10);
-                $(that.id + " .danmu-div").data("nowTime", parseInt(that.video.currentTime*10));
+            // if (Math.abs($(that.id + " .danmu-div").data("nowTime") - parseInt(that.video.currentTime*10)) > 1) {
+            //  console.log("revise time"+$(that.id + " .danmu-div").data("nowTime")+ ","+that.video.currentTime*10);
+            $(that.id + " .danmu-div").data("nowTime", parseInt(that.video.currentTime * 10));
 
-          //  }
+            //  }
         }, 50);
         //按键事件
         $(document).ready(function () {
             jQuery("body").keydown({that: that}, function (event) {
                 if (event.which == 13) {
                     that.sendDanmu(event);
-                    return false
+                    return false;
                 }
 
             });
@@ -245,10 +251,10 @@
                 $(e.data.that.id + " .danmu-div").data("nowTime", 0);
                 $(e.data.that.id + " .danmu-div").data("danmuPause");
             } else {
-                $(e.data.that.id + " .danmu-div").data("nowTime", parseInt($(e.data.that.id + " .danmu-video").get(0).currentTime)*10);
+                $(e.data.that.id + " .danmu-div").data("nowTime", parseInt($(e.data.that.id + " .danmu-video").get(0).currentTime) * 10);
                 $(e.data.that.id + " .danmu-div").data("danmuPause");
             }
-            $(e.data.that.id + " .danmu-player-load").css("display","block");
+            $(e.data.that.id + " .danmu-player-load").css("display", "block");
 
         });
 
@@ -259,10 +265,10 @@
                 $(e.data.that.id + " .danmu-div").data("nowTime", 0);
                 $(e.data.that.id + " .danmu-div").data("danmuResume");
             } else {
-                $(e.data.that.id + " .danmu-div").data("nowTime", parseInt($(e.data.that.id + " .danmu-video").get(0).currentTime)*10);
+                $(e.data.that.id + " .danmu-div").data("nowTime", parseInt($(e.data.that.id + " .danmu-video").get(0).currentTime) * 10);
                 $(e.data.that.id + " .danmu-div").data("danmuResume");
             }
-            $(e.data.that.id + " .danmu-player-load").css("display","none");
+            $(e.data.that.id + " .danmu-player-load").css("display", "none");
 
         });
 
@@ -273,24 +279,47 @@
         });
 
 
-        //调整透明度事件
+        //调整音量事件
         $(this.id + " .danmu-op").on('mouseup touchend', {that: that}, function (e) {
             /*$(e.data.that.id + " .danmu-div").data("opacity", (e.target.value / 100));
-            $(e.data.that.id + " .danmaku").css("opacity", (e.target.value / 100));*/
-            $(".danmu-video")[0].volume = e.target.value / 100;
+             $(e.data.that.id + " .danmaku").css("opacity", (e.target.value / 100));*/
+            $(e.data.that.id + " .danmu-video")[0].volume = e.target.value / 100;
         });
 
-        //全屏事件
+        //网页全屏事件
         $(this.id + " .full-screen").on("click", {video: this.video, that: that}, function (e) {
             if (!e.data.that.danmuPlayerFullScreen) {
                 //$css({"position":"fixed","zindex":"999","top":"0","left":"0","height":"100vh","width":"100vw"});
                 $(e.data.that.id).addClass("danmu-player-full-screen");
                 e.data.that.danmuPlayerFullScreen = true;
+                //$(e.data.that.id).fullscreen();
+                $(e.data.that.id + " .full-screen-desktop").hide();
                 $(e.data.that.id + " .full-screen span").removeClass("glyphicon-resize-full").addClass("glyphicon-resize-small");
             }
             else {
                 $(e.data.that.id).removeClass("danmu-player-full-screen");
                 e.data.that.danmuPlayerFullScreen = false;
+                $.fullscreenExit();
+                $(e.data.that.id + " .full-screen-desktop").show();
+                $(e.data.that.id + " .full-screen span").removeClass("glyphicon-resize-small").addClass("glyphicon-resize-full");
+            }
+
+        });
+        //桌面全屏事件
+        $(this.id + " .full-screen-desktop").on("click", {video: this.video, that: that}, function (e) {
+            if (!e.data.that.danmuPlayerFullScreen) {
+                //$css({"position":"fixed","zindex":"999","top":"0","left":"0","height":"100vh","width":"100vw"});
+                $(e.data.that.id).addClass("danmu-player-full-screen");
+                e.data.that.danmuPlayerFullScreen = true;
+                $(e.data.that.id).fullscreen();
+                $(e.data.that.id + " .full-screen-desktop").hide();
+                $(e.data.that.id + " .full-screen span").removeClass("glyphicon-resize-full").addClass("glyphicon-resize-small");
+            }
+            else {
+                $(e.data.that.id).removeClass("danmu-player-full-screen");
+                e.data.that.danmuPlayerFullScreen = false;
+                $.fullscreenExit();
+                $(e.data.that.id + " .full-screen-desktop").show();
                 $(e.data.that.id + " .full-screen span").removeClass("glyphicon-resize-small").addClass("glyphicon-resize-full");
             }
 
